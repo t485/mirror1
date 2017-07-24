@@ -1,5 +1,6 @@
-// Updated 12/24/16; 241 members
-// Regex: ,[^$\n]+$
+// Updated 7/12/17; 241 members
+// Regex: [^$\n]+$
+// to use Regex: Find regex and replace with nothing, then find and replace commas with nothing
 
 12345ryanwang@gmail.com
 168casey@gmail.com
@@ -13,6 +14,7 @@ anitaylin@yahoo.com
 artbowong@gmail.com
 awesomenessrichard2@gmail.com
 baronwang1021@gmail.com
+bchang.6096@gmail.com
 benjamingao99@gmail.com
 bjdlh99@gmail.com
 bnkwu08@gmail.com
@@ -22,7 +24,7 @@ brandon_z_zhang@yahoo.com
 brandonykli@gmail.com
 brandonyuan68@gmail.com
 bsa485@gmail.com
-casey168@hotmail.com
+Casey168@hotmail.com
 chang_chiwei@yahoo.com
 chenchen4937@gmail.com
 chhuangw@msn.com
@@ -35,6 +37,7 @@ cnlau1235@yahoo.com
 conan1235@gmail.com
 ct_kao@yahoo.com
 dalunbao@yahoo.com
+daniel@chenhome.org
 danielcyao@gmail.com
 danielningx80@gmail.com
 danielzlin@yahoo.com
@@ -45,7 +48,7 @@ davidccho@gmail.com
 dday4040@gmail.com
 djy20w@gmail.com
 dongyingma@ymail.com
-dylantsai1999@yahoo.com
+dylantsai1999t485@gmail.com
 eaglebenjamint@gmail.com
 edbertjao@gmail.com
 ellen.xin.li@gmail.com
@@ -55,23 +58,26 @@ eric.z.car@gmail.com
 ethan_lian@tsmc.com
 ethanlian@gmail.com
 euray4201@gmail.com
+evanlee1688@gmail.com
 fchen1991@gmail.com
+fl_yang@yahoo.com
 forestyang80@gmail.com
+forshirleyk@gmail.com
 frankyao333@gmail.com
 fwong94306@gmail.com
 garrick.chang@gmail.com
 gcao_99@yahoo.com
 glenchen1056@gmail.com
 gogodandan@gmail.com
-graceyuan77@gmail.com
 guan.jonathan1@gmail.com
 guandenise@sbcglobal.net
 guolin.yang@gmail.com
-guopinglee@yahoo.com
 guoshu8101@gmail.com
 gxxk.max@gmail.com
 hagenzhang2015@gmail.com
 haimingt@yahoo.com
+harvey.yang.1126@gmail.com
+helenhon@gmail.com
 hjacobho@gmail.com
 hnie71@gmail.com
 hong.chen@gmail.com
@@ -81,8 +87,10 @@ humbbringer@gmail.com
 icestormf1@gmail.com
 itachijc@yahoo.com
 jacobnie2008@gmail.com
+jane.chiang@gmail.com
 janet_yau@yahoo.com
 jasonojb@gmail.com
+jd99dd@outlook.com
 jed.lee9@gmail.com
 jeddhui@gmail.com
 jedlee9@yahoo.com
@@ -115,6 +123,7 @@ joshuayin2005@gmail.com
 joshuazmei31@gmail.com
 joyjoycelia@gmail.com
 justin1998@gmail.com
+jyao1271@gmail.com
 jyqiao@gmail.com
 keraychen@gmail.com
 ks3101@163.com
@@ -128,11 +137,14 @@ lechun.c.wu@gmail.com
 lechun_chen@yahoo.com
 lee.jayson.jayson@gmail.com
 leonlau313@gmail.com
+leowxy@yahoo.com
 lg9393@gmail.com
+ligaoping93@gmail.com
 lili_yi@yahoo.com
 lilylau313@gmail.com
 linda.c.bao@gmail.com
 lindacai@yahoo.com
+linzhao2001@gmail.com
 liyuchen2000@yahoo.com
 lniu001@gmail.com
 lo.jeremiah9@gmail.com
@@ -148,11 +160,13 @@ margaret_zhao@hotmail.com
 matt.tsai.55@gmail.com
 melody@chenhome.org
 melodyxiong711@gmail.com
-michellezhao@gmail.com
+michelle.zhao@gmail.com
+millychangtt@gmail.com
 minmma@gmail.com
 mtham88@yahoo.com
 nathanbao@gmail.com
-Panlin_us@yahoo.com
+okchoi09@gmail.com
+panlin_us@yahoo.com
 patricky168@gmail.com
 peilinjiang2007@gmail.com
 pow827@gmail.com
@@ -160,6 +174,7 @@ qiaodavid5@gmail.com
 qip1801@163.com
 qip2636@gmail.com
 qwxu@yahoo.com
+reply2valerie@gmail.com
 rhsieh2005@yahoo.com
 richy.liu.2002@gmail.com
 rmeng2006@gmail.com
@@ -170,9 +185,7 @@ samng_ccf@yahoo.com
 samuelting@gmail.com
 samuelting@yahoo.com
 samuelwong.lh@gmail.com
-sarah_qian2009@yahoo.com
 sc.ivy.hsu@gmail.com
-scouting@garricka.com
 scoutingiscool99@yahoo.com
 scoutingisfun88@yahoo.com
 sherry_zhangyu@yahoo.com
@@ -181,6 +194,7 @@ shuqingli2007@gmail.com
 sismmk@gmail.com
 Skyblue1086@gmail.co
 skyblue1086@gmail.com
+soccermatthewli@gmail.com
 stardust.us50@gmail.com
 stephenmanwong@gmail.com
 steven.nguyen10705@gmail.com
@@ -206,18 +220,18 @@ timothyl201@gmail.com
 timothywu2014@gmail.com
 tj03101@gmail.com
 tjzhoupj@gmail.com
-tnknga12@gmail.com
 tracey.meng@gmail.com
+twisterphantom212@gmail.com
 twong_@yahoo.com
 unknownsoul98910@gamil.com
 unknownsyrum@gmail.com
-vanrookjs@gmail.com
 vivawind@gmail.com
 vivian_tang@yahoo.com
 weiguang.yu@yahoo.com
 weihongzhang@hotmail.com
 wen.zhu2006@gmail.com
 whzhang99@gmail.com
+will.i.am.gegegaga@gmail.com
 williamjao@yahoo.com
 wmwcomp@hotmail.com
 wongfelicia808@gmail.com
@@ -226,14 +240,18 @@ xiaochun.mei@gmail.com
 xiaotong_he@yahoo.com
 xichen06@gmail.com
 xie_bo@hotmail.com
+xmzhou@gmail.com
+xpshopping@yahoo.com
 xr_xiong@yahoo.com
 xujian_us@yahoo.com
 yanfangz@yahoo.com
 yang229066@gmail.com
+yanmama1@gmail.com
 yao.sharon@gmail.com
 yayperry@gmail.com
 yijiehuang77@gmail.com
 yinghailu@gmail.com
+yjie.liu10@yahoo.com
 yoweiliu@gmail.com
 yuanwen@gmail.com
 yuhua_c2000@yahoo.com

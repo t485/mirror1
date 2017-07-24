@@ -1,6 +1,6 @@
 //========================================================= DANGER ZONE BELOW ===========================================
 var mode = "mirror"; // normal", "mirror", "redirect"
-var data = 1; //specific to above mode, see below
+var data = 1; //specific to above mode, see below 
 /* Modes:
 normal:
     normal, site should be loaded from github.com/t485/t485
@@ -14,7 +14,6 @@ redirect:
     onle use if this is the website loaded from the normal repository, and is LOADED, but does not work(not live, etc.)
     data should contain a string with an url to redirect to. INCLUDE PROTOCOL, CURRENT PATH AUTOMATICALLY APPENDED, SO DO NOT INCLUDE TRAILING SLASH
 */
-console.log(1);
 if (mode === "redirect") {
     $(document).ready(function() {
         $("#alertBox").html('<div class="alert alert-warning">' +
@@ -43,7 +42,8 @@ else {
     Array.from(document.getElementsByTagName('a')).forEach(element => {
         if (page === element.getAttribute('href')) {
             element.parentElement.classList.add('active');
-        } else {
+        }
+        else {
             element.parentElement.classList.remove('active');
         }
     });
@@ -54,18 +54,33 @@ else {
 
 /* Initializers */
 
+// Logout link in navbar
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    //$("#nav-user-email").html(" as " + user.providerData[0].email);
+    $("#nav-user-status").removeClass("hidden");
+  } else {
+    // No user is signed in, do nothing. Individual login script is on each page.
+  }
+});
+
+ 
 // Back to top button animation
 $(window).scroll(function() {
     if ($(this).scrollTop() > 0) {
         $('#toTop').fadeIn(3000);
-    } else {
+    }
+    else {
         $('#toTop').fadeOut();
     }
 });
 
-
-// Set LESS async to true to prevent warning on Chrome
-less = {async: true};
+//email bot obfuscator sort of...
+$(".at").text("@")
+    // Set LESS async to true to prevent warning on Chrome
+less = {
+    async: true
+};
 
 
 
@@ -73,7 +88,8 @@ less = {async: true};
 $('.dropdown a').click(function() {
     if ($(this).parent().hasClass('open')) {
         $(this).parent().removeClass('open');
-    } else {
+    }
+    else {
         $('.dropdown').removeClass('open');
         $(this).parent().addClass('open');
     }
@@ -84,27 +100,45 @@ $('.dropdown a').click(function() {
 
 /* Helpers */
 
-
 // Checks if the user is logged in
-function auth(onAuthed = () => {}, onUnauthed = () => {}) {
+function auth(onAuthed, onUnauthed) {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
-            onAuthed(user);
-        } else {
-            onUnauthed();
+            if (onAuthed)
+                onAuthed(user);
+        }
+        else {
+            if (onUnauthed)
+                onUnauthed();
         }
     });
 }
 
-$('#eel-289371845').click(() => window.location.href = 'easter-eggs.html');
 
 
 // Source: http://www.w3schools.com/js/js_cookies.asp
-function setCookie(e,o,i){if(null===i||''===i||'browser'===i||0===i)document.cookie=e+'='+o+'; ';else{var t=new Date;t.setTime(t.getTime()+24*i*60*60*1e3);var n='expires='+t.toUTCString();document.cookie=e+'='+o+'; '+n}}
+function setCookie(name, value, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
 
 
-function getCookie(t){for(var n=t+'=',r=document.cookie.split(';'),e=0;e<r.length;e++){for(var i=r[e];' '==i.charAt(0);)i=i.substring(1);if(0==i.indexOf(n))return i.substring(n.length,i.length)}return''}
-
+function getCookie(name) {
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name + "=") == 0) {
+            return c.substring((name + "=").length, c.length);
+        }
+    }
+    return "";
+}
 
 function getVarsFromUrl() {
     var vars = {};
@@ -114,36 +148,62 @@ function getVarsFromUrl() {
     return vars;
 }
 
-function generateEEID(s1, s2, s3, s4, callback2 = () => {}, uid) {
-    firebase.database().ref("/ee/u/" + uid + "/ueeid/").once("value").then(function(snapshot) {
-        var data = snapshot.val();
-        if (data === null) {
-            callback2(".ERROR/User-Not-Registered");
-        }
-        else {
-            callback2(data[0] + s1 + "-" + data[1] + s2 + "-" + data[2] + s3 + "-" + data[3] + s4);
-        }
-    });
+// Fisher-Yates shuffle
+function generateRandomNums(r) {
+    for (var a = [], n = 0; r > n; n++) a[n] = n;
+    for (var o, e, t = r; t;) e = ~~(Math.random() * t), t -= 1, o = a[t], a[t] = a[e], a[e] = o;
+    return a
 }
 
 
-// Fisher-Yates shuffle
-function generateRandomNums(r){for(var a=[],n=0;r>n;n++)a[n]=n;for(var o,e,t=r;t;)e=~~(Math.random()*t),t-=1,o=a[t],a[t]=a[e],a[e]=o;return a}
-
-
 // http://stackoverflow.com/questions/20618355/the-simplest-possible-javascript-countdown-timer
-function countdown(n,t,e){function o(){a=n-((Date.now()-c)/1e3|0),u=a/60|0,w=a%60|0,u=10>u?'0'+u:u,w=10>w?'0'+w:w,t.textContent=u+':'+w,0>=a&&('reset'===e||null===e?c=Date.now()+1e3:e())}var a,u,w,c=Date.now();o(),setInterval(o,1e3)}
+function countdown(n, t, e) {
+    function o() {
+        a = n - ((Date.now() - c) / 1e3 | 0), u = a / 60 | 0, w = a % 60 | 0, u = 10 > u ? '0' + u : u, w = 10 > w ? '0' + w : w, t.textContent = u + ':' + w, 0 >= a && ('reset' === e || null === e ? c = Date.now() + 1e3 : e())
+    }
+    var a, u, w, c = Date.now();
+    o(), setInterval(o, 1e3)
+}
 
 
 // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
-function getQuery(e){e=e.replace(/[\[]/,"\\[").replace(/[\]]/,"\\]");var c=new RegExp("[\\?&]"+e+"=([^&#]*)"),n=c.exec(location.search);return null===n?"":decodeURIComponent(n[1].replace(/\+/g," "))}
+function getQuery(e) {
+    e = e.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var c = new RegExp("[\\?&]" + e + "=([^&#]*)"),
+        n = c.exec(location.search);
+    return null === n ? "" : decodeURIComponent(n[1].replace(/\+/g, " "))
+}
 
 
 // Code from https://gist.github.com/andrei-m/982927#file-levenshtein-js
-function compare(t,n){if(0==t.length)return n.length;if(0==n.length)return t.length;var r,e=[];for(r=0;r<=n.length;r++)e[r]=[r];var h;for(h=0;h<=t.length;h++)e[0][h]=h;for(r=1;r<=n.length;r++)for(h=1;h<=t.length;h++)n.charAt(r-1)==t.charAt(h-1)?e[r][h]=e[r-1][h-1]:e[r][h]=Math.min(e[r-1][h-1]+1,Math.min(e[r][h-1]+1,e[r-1][h]+1));return e[n.length][t.length];}
+function compare(t, n) {
+    if (0 == t.length) return n.length;
+    if (0 == n.length) return t.length;
+    var r, e = [];
+    for (r = 0; r <= n.length; r++) e[r] = [r];
+    var h;
+    for (h = 0; h <= t.length; h++) e[0][h] = h;
+    for (r = 1; r <= n.length; r++)
+        for (h = 1; h <= t.length; h++) n.charAt(r - 1) == t.charAt(h - 1) ? e[r][h] = e[r - 1][h - 1] : e[r][h] = Math.min(e[r - 1][h - 1] + 1, Math.min(e[r][h - 1] + 1, e[r - 1][h] + 1));
+    return e[n.length][t.length];
+}
 
 
 
 
+//google anylatics
 
+(function(i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function() {
+        (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
+ga('create', 'UA-102375833-1', 'auto');
+ga('send', 'pageview');
