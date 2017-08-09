@@ -2,7 +2,7 @@
 
 This repository is a mirror of the main repository at [t485/t485](https://github.com/t485/t485/)
 
-You should be updating this repository about every two weeks.
+*Webmaster*: You should be updating this repository about every two weeks.
 
 ###To Update(For current webmaster):
 
@@ -18,3 +18,4 @@ You should be updating this repository about every two weeks.
     4. To fix bugs or access the website without being automatically redirected, add the query string `mirror-no-redirect=true` to the query string
 for example: `https://www.t485.org/blah.html?mirror-no-redirect=true`
     5. Dont forget to change the variables back in the main website once you fix the bugs.
+    
