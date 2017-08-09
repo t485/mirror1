@@ -118,6 +118,7 @@
                             <li><a href="/about/smc.html">SMC &amp; BOR</a></li>
                             <li><a href="/about/plc.html">PLC</a></li>
                             <li><a href="/about/troop-info.html">Troop Information</a></li>
+                            <li><a href="/about/troop-jobs.html">Troop Jobs</a></li>
                         </ul>
                     </li>
                     <li id="nav-user-status"><a onclick="window.location.href = '/logout.html?redir=' + encodeURIComponent(window.location.pathname);">Logout</a></li>
@@ -157,22 +158,16 @@
                     <hr>
                     <h2 class="intro-text text-center">Files</h2>
                     <hr>
-                    
-                    <ul>
-                        <li><a onclick="openModal(this, 'https://www.t485.org/resources/other-files/Camp-Makualla.pdf');">Summer Camp 2016: Camp Makulla</a></li>
-                        <li><a onclick="openModal(this, 'https://docs.google.com/document/d/1IC1fttf7tEZhezKfNKs0ADtHOQjgyBcMSqjQ_75zUKk/mobilebasic');">Council Resource</a></li>
-                        <li><a onclick="openModal(this, 'https://docs.google.com/document/d/1dtMPUhKv6eOfKaxk3iMwnRbovgu0yZt6J0mH8wPdBfY/mobilebasic');">Things to Remember</a></li>
-                        <li><a onclick="openModal(this, 'https://docs.google.com/document/d/1ssoNp8eQqNzkeJAefQdLk6aqu5bEMGarUHX9RvpV1BU/mobilebasic');">Resume Template</a></li>
-                        <li><a onclick="openModal(this, 'https://docs.google.com/document/d/1a56ZOlhhT1MT7QGXwLSzmsD5l1cahH44O6kUFNTAJ3I/mobilebasic');">Packing List</a></li>
-                        <li><a onclick="openModal(this, 'https://docs.google.com/document/d/16ft2MS85ZYynyJC9lMIo6Kp8yaJQfcGmY62ayj97_uo/mobilebasic');">TLT2016 - Lecture Notes</a></li>
-                        <li><a onclick="openModal(this, 'https://firebasestorage.googleapis.com/v0/b/project-2556333409340273878.appspot.com/o/resources%2FNew%20Boy%20Scout%20Requirements%202016%20Insert.pdf?alt=media&amp;token=3782b26b-c79c-49f3-bc35-a32f0ce0a7a9');">New Boy Scout Requirements 2016 Insert.pdf (343.8 KB)</a></li>
+
+                    <ul id="files-box">
+                        <li><a onclick="openModal(this, 'https://docs.google.com/document/d/1IC1fttf7tEZhezKfNKs0ADtHOQjgyBcMSqjQ_75zUKk/mobilebasic');">Council and District information</a></li>
+                        <li><a onclick="openModal(this, 'other-files/resume-guide.pdf');">Resume Guide</a></li>
+                        <li><a onclick="openModal(this, 'https://docs.google.com/document/d/1a56ZOlhhT1MT7QGXwLSzmsD5l1cahH44O6kUFNTAJ3I/mobilebasic');">Packing Guide</a></li>
                         <li><a onclick="openModal(this, 'https://firebasestorage.googleapis.com/v0/b/project-2556333409340273878.appspot.com/o/resources%2FPatrol%20Leader%20Handbook.pdf?alt=media&amp;token=2c696c57-719e-4c23-9e70-d1154bd3f55e');">Patrol Leader Handbook.pdf (3.2 MB)</a></li>
                         <li><a onclick="openModal(this, 'https://firebasestorage.googleapis.com/v0/b/project-2556333409340273878.appspot.com/o/resources%2FBSA%20Fieldbook.pdf?alt=media&amp;token=06cf3993-def1-4e2d-b461-373ce77712a2');">BSA Fieldbook.pdf (69.8 MB)</a></li>
-                        <li><a onclick="openModal(this, 'https://docs.google.com/presentation/embed?id=1cqU9DQ0c4RXcm0GJ-gJJ8pRP8Ah3WsYApBlaLbrnRhw&amp;start=false&amp;loop=false');">Year End Party Presentation</a></li>
-                        <li><a onclick="openModal(this, 'https://docs.google.com/presentation/embed?id=16vDoqikgorGn4utl1sHBkMhXqbEbvwtGkJ5xMMfbm-o&amp;start=false&amp;loop=false');">2016 Advancement Update</a></li>
-                        <li><a onclick="openModal(this, 'https://docs.google.com/presentation/embed?id=15e_mFNG0x4JIhqbCOZ3CDkVm_nrmEnXYE1RFOEQKd-w&amp;start=false&amp;loop=false');">Advancement Presentation</a></li>
-                        <li><a onclick="openModal(this, 'https://docs.google.com/spreadsheets/d/1fjrkSV_svlleL1ltqJGgozIvEafzmmiMPCe7xEqnngI/pubhtml?widget=true&headers=false');">Events</a></li>
+                        <li><a onclick="openModal(this, 'https://docs.google.com/spreadsheets/d/1fjrkSV_svlleL1ltqJGgozIvEafzmmiMPCe7xEqnngI/pubhtml?widget=true&headers=false');">Event Files</a></li>
                         <li><a onclick="openModal(this, 'https://drive.google.com/embeddedfolderview?id=0BygadbpNuUSXUXhRMUlycW0yNGs#' + (window.innerWidth > 767 ? 'grid' : 'list'));">Event Cheatsheets</a></li>
+                        <li><a href="/resources/event-pages.html">Event Pages</a></li>
                     </ul>
                 </div>
             </div>
@@ -181,40 +176,25 @@
         </div>
 
 
-        <!--
+
         <div class="row">
             <div class="box col-md-12">
                 <hr>
                 <h2 class="intro-text text-center">Add <strong>Files</strong></h2>
                 <hr>
                 <p>
-                    You can upload your own resources. Be sure to provide a
-                    meaningful event name or title. Please note that the title
-                    of the file you upload is the name people see. If you want
-                    to delete a file, email the webmaster with your event
-                    name/title.
+                    You can add your own file links below. To remove a file, email the webmaster.<br>
+                    Google documents and PDF's with the protocol https only(for security reasons) will be opened in a popup automatically.
                 </p>
-                <form>
-                    <div class="form-group">
-                        <label for="event-name">Event name/title:</label>
-                        <input type="text" class="form-control" id="event-name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="files">File upload (you can select multiple)</label>
-                        <input type="file" id="files" name="files[]" multiple class="form-control-file" required>
-                    </div>
-                    <div id="upload-progress"></div>
-                    <div class="form-group">
-                        <label for="drive-urls">Google Docs or Google Slides url and file name (one per line)</label>
-                        <textarea class="form-control" id="drive-urls" rows="5" placeholder="https://docs.google.com/document/d/1W98GkzMbu3MhVX4bq981dyjifWLYr3Bat6ej-iE52Os/mobilebasic,This is a test file"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" id="submit" value="Submit" class="btn btn-default">
-                    </div>
-                </form>
+                <label for="upload-file-name">File name:</label>
+                <input class="form-control" id="upload-file-name" type="text">
+                
+                <label for="upload-file-url">File URL:</label>
+                <input class="form-control" id="upload-file-url" type="text">
+                <button id="upload-file-btn" class="form-control btn btn-primary">Add file</button>
             </div>
         </div>
-        -->
+
 
         <script src="https://static.getclicky.com/js"></script>
         <script>
@@ -311,6 +291,29 @@
                 }
             }
         }
+        $("#upload-file-btn").click(function() {
+            var url = $("#upload-file-url").val();
+            var name = $("#upload-file-name").val();
+            var el;
+            if (url.match(/^(https:\/\/((docs\.google\.com\/document\/d\/.+\/.*)?)|(https:\/\/.+\..+.+\.pdf))$/g)) {
+                el = encodeURIComponent('<li><a onclick="openModal(this, ' + "'" + url.replace("/edit", "/moiblebasic") + "'" + ')">' + name + '</a></li>');
+            }
+            else {
+                el = encodeURIComponent('<li><a href="' + url + '">' + name + "</a></li>");
+            }
+
+            firebase.database().ref("/files/").push(el);
+            window.location.href = window.location.href;
+        });
+        firebase.database().ref("/files/").once("value").then(function(snapshot) {
+            var data = snapshot.val();
+            for (var key in data) {
+                if (data.hasOwnProperty(key)) {
+                    console.log(data[key]);
+                    $("#files-box").append(decodeURIComponent(data[key]))
+                }
+            }
+        })
     </script>
 
 </body>

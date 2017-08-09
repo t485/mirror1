@@ -1,6 +1,6 @@
 //========================================================= DANGER ZONE BELOW ===========================================
-var mode = "mirror"; // normal", "mirror", "redirect"
-var data = 1; //specific to above mode, see below 
+var mode = "normal"; // normal", "mirror", "redirect"
+var data = null; //specific to above mode, see below 
 /* Modes:
 normal:
     normal, site should be loaded from github.com/t485/t485
