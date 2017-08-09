@@ -1,6 +1,6 @@
 //========================================================= DANGER ZONE BELOW ===========================================
-var mode = "normal"; // normal", "mirror", "redirect"
-var data = null; //specific to above mode, see below 
+var mode = "mirror"; // normal", "mirror", "redirect"
+var data = 1; //specific to above mode, see below 
 /* Modes:
 normal:
     normal, site should be loaded from github.com/t485/t485
@@ -24,12 +24,12 @@ if (mode === "redirect") {
 }
 else if (mode === "mirror") {
     $(document).ready(function() {
-        console.log(2);
+        //console.log(2);
         $("#alertBox").html('<div class="alert alert-warning">' +
             '  <strong>Warning!</strong> You are currently viewing mirror ' + data + ' of the t485.org website. If you got redirected here by typing in https://t485.org, then the t485.org main site may be undergoing mantiance or is not working at this moment. This mirror is a fully functional version of the main site, but it may be slightly outdated.' +
             '</div>');
     });
-    console.log(3);
+    //console.log(3);
 }
 else {
     //assume mode is normal, don't do anything
