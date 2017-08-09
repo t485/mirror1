@@ -2,7 +2,7 @@
 
 This repository is a mirror of the main repository at [t485/t485](https://github.com/t485/t485/)
 
-*Webmaster*: You should be updating this repository about every two weeks.
+**Webmaster**: You should be updating this repository about every two weeks.
 
 ### To Update(For current webmaster):
 
