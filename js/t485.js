@@ -2,32 +2,46 @@
 var mode = "mirror"; // normal", "mirror", "redirect"
 var data = 1; //specific to above mode, see below 
 /* Modes:
-normal:
-    normal, site should be loaded from github.com/t485/t485
-    data variable is ignored and should be null
-mirror:
-    this is a mirror site, and should be loaded from the approiate mirror repo on github(if more than one exist)
-    data should contain the mirror number(as a integer data type)
-    the mirror number will be displayed in an alert
+"normal":
+    Normal mode, site should be loaded from t485/t485. Data variable is ignored
+    and should be null
+"mirror":
+    This is a mirror site, and should be loaded from the approiate mirror repo
+    on github. Data should contain the mirror number (as a integer) The mirror
+    number will be displayed in an alert.
     
-redirect:
-    onle use if this is the website loaded from the normal repository, and is LOADED, but does not work(not live, etc.)
-    data should contain a string with an url to redirect to. INCLUDE PROTOCOL, CURRENT PATH AUTOMATICALLY APPENDED, SO DO NOT INCLUDE TRAILING SLASH
+"redirect":
+    Only use if this is the website loaded from the normal repository but does
+    not work (fatal bugs, etc). Data should contain a string with an url to
+    redirect to. INCLUDE PROTOCOL, CURRENT PATH AUTOMATICALLY APPENDED, SO DO
+    NOT INCLUDE TRAILING SLASH. Ex: "http://mirror1.t485.org"
 */
 if (mode === "redirect") {
-    $(document).ready(function() {
-        $("#alertBox").html('<div class="alert alert-warning">' +
-            '  <strong>Warning!</strong> You are being redirected to a mirror of t485.org because the main site is undergoing mantiance. If you are not automatically redirected in a few seconds, go to this URL: <a href="' + data + '">' + data + '</a>' +
-            '</div>');
+    $(document).ready(() => {
+        $("#alertBox").html(`
+            <div class="alert alert-warning">
+                <strong>Warning!</strong> You are being redirected to a mirror
+                of t485.org because the main site is undergoing mantiance. If
+                you are not automatically redirected in a few seconds, go to
+                this URL: <a href="${data}">${data}</a>
+            </div>
+        `);
     });
     window.location.href = data + window.location.pathname;
 }
 else if (mode === "mirror") {
-    $(document).ready(function() {
+    $(document).ready(() => {
         //console.log(2);
-        $("#alertBox").html('<div class="alert alert-warning">' +
-            '  <strong>Warning!</strong> You are currently viewing mirror ' + data + ' of the t485.org website. If you got redirected here by typing in https://t485.org, then the t485.org main site may be undergoing mantiance or is not working at this moment. This mirror is a fully functional version of the main site, but it may be slightly outdated.' +
-            '</div>');
+        $("#alertBox").html(`
+            <div class="alert alert-warning">
+                <strong>Warning!</strong> You are currently viewing mirror
+                ${data} of the t485.org website. If you got redirected here by
+                typing in https://t485.org, then the t485.org main site may be
+                undergoing mantiance or is not working at this moment. This
+                mirror is a fully functional version of the main site, but it
+                may be slightly outdated.
+            </div>
+        `);
     });
     //console.log(3);
 }
@@ -39,23 +53,22 @@ else {
     // remove leading slash
     let page = window.location.pathname.substr(1);
 
-    Array.from(document.getElementsByTagName('a')).forEach(element => {
+    for (let element of document.getElementsByTagName('a')) {
         if (page === element.getAttribute('href')) {
             element.parentElement.classList.add('active');
-        }
-        else {
+        } else {
             element.parentElement.classList.remove('active');
         }
-    });
+    }
 
     document.getElementById('bs-example-navbar-collapse-1').classList.remove('in');
-})
+});
 
 
 /* Initializers */
 
 // Logout link in navbar
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     //$("#nav-user-email").html(" as " + user.providerData[0].email);
     $("#nav-user-status").removeClass("hidden");
@@ -66,7 +79,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
  
 // Back to top button animation
-$(window).scroll(function() {
+$(window).scroll(() => {
     if ($(this).scrollTop() > 0) {
         $('#toTop').fadeIn(3000);
     }
@@ -85,7 +98,7 @@ less = {
 
 
 // Fix dropdown menu bug on iOS
-$('.dropdown a').click(function() {
+$('.dropdown a').click(() => {
     if ($(this).parent().hasClass('open')) {
         $(this).parent().removeClass('open');
     }
@@ -142,7 +155,7 @@ function getCookie(name) {
 
 function getVarsFromUrl() {
     var vars = {};
-    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
+    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
         vars[key] = value;
     });
     return vars;
