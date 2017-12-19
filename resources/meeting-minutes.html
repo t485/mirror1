@@ -11,7 +11,7 @@
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
     <script>
         // Initialize Firebase
-        var config = {
+        let config = {
             apiKey: "AIzaSyAvhRMDTAxHRqIM0-RpHxPjZtMn7S_H7K4",
             authDomain: "t485.firebaseapp.com",
             databaseURL: "https://t485.firebaseio.com",
@@ -102,6 +102,7 @@
                             <li><a href="/resources/event-pages.html">Event Pages</a></li>
                             <li><a href="/resources/meeting-minutes.html">Meeting Minutes/Reflections</a></li>
                             <li><a href="/resources/pictures.html">Pictures</a></li>
+                            <li><a href="https://ls.t485.org/">Link Shortener</a></li>
                             <li><a href="/resources/app-download.html">Download App</a></li>
                         </ul>
                     </li>
@@ -113,13 +114,13 @@
                             <li><a href="/about/faq.html">FAQ</a></li>
                             <li><a href="/about/merit-badges.html">Merit Badges</a></li>
                             <li><a href="/about/eagle.html">Path to Eagle</a></li>
-                            <li><a href="/about/smc.html">SMC &amp; BOR</a></li>
+                            <li><a href="/about/smc.html">SMC & BOR</a></li>
                             <li><a href="/about/plc.html">PLC</a></li>
                             <li><a href="/about/troop-info.html">Troop Information</a></li>
                             <li><a href="/about/troop-jobs.html">Troop Jobs</a></li>
                         </ul>
                     </li>
-                    <li id="nav-user-status"><a onclick="window.location.href = '/logout.html?redir=' + encodeURIComponent(window.location.pathname);">Logout</a></li>
+                    <li id="nav-user-status"><a onclick="window.location.href = '/logout.html?redir=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash);">Logout</a></li>
 
                 </ul>
 
@@ -127,7 +128,7 @@
         </div>
     </nav>
     <div id="alertBox"></div>
-    <a id="toTop" onclick="window.location.hash='#'"></a>
+    <a class="toTop" href="#"></a>
 
     <div class="container hidden" id="login">
 
@@ -160,7 +161,7 @@
 
                     <div id="main">
 
-
+                        <iframe src="https://drive.google.com/embeddedfolderview?id=0B25fgJUTMKt_TzlueXN5ODhkYUE#grid" width="700" height="500" frameborder="0"></iframe>
                         <ul class="list list-group" id="mm-list">
                             <li>5/1 <a onclick="openModal(this, 'https://docs.google.com/document/d/1EPYd4YIQwHOr162seNU4GgR_XB7r477ByOmszXoOgBc/edit')">Troop Meeting Minutes</a>,
                                 <a onclick="openModal(this, 'https://docs.google.com/document/d/125eIuDc-prx3VGL9aPXq8mC_siJGG4Jogu6ILEMJMZI/edit')">PLC Meeting Minutes</a>,
@@ -351,19 +352,19 @@
         auth(() => $("#content").removeClass("hidden"), () => $("#login").removeClass("hidden"));
     </script>
     <script>
-        firebase.database().ref("/meetingminutes/").once("value").then(function(snapshot) {
-            var data = snapshot.val();
-            for (var key in data) {
+        firebase.database().ref("/meetingminutes/").once("value").then((snapshot) => {
+            let data = snapshot.val();
+            for (let key in data) {
                 if (data.hasOwnProperty(key)) {
-                    var value = data[key];
+                    let value = data[key];
                     
                 }
             }
         });
 
         function openModal(_this, url) {
-            var editurl;
-            var editregex = /(https:\/\/docs\.google\.com\/document\/d\/.+\/)edit/g.exec(url);
+            let editurl;
+            let editregex = /(https:\/\/docs\.google\.com\/document\/d\/.+\/)edit/g.exec(url);
             if (editregex !== null) {
                 editurl = editregex[0] + "edit"
             }

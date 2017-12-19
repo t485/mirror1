@@ -11,7 +11,7 @@
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
     <script>
         // Initialize Firebase
-        var config = {
+        let config = {
             apiKey: "AIzaSyAvhRMDTAxHRqIM0-RpHxPjZtMn7S_H7K4",
             authDomain: "t485.firebaseapp.com",
             databaseURL: "https://t485.firebaseio.com",
@@ -104,6 +104,7 @@
                             <li><a href="/resources/event-pages.html">Event Pages</a></li>
                             <li><a href="/resources/meeting-minutes.html">Meeting Minutes/Reflections</a></li>
                             <li><a href="/resources/pictures.html">Pictures</a></li>
+                            <li><a href="https://ls.t485.org/">Link Shortener</a></li>
                             <li><a href="/resources/app-download.html">Download App</a></li>
                         </ul>
                     </li>
@@ -115,13 +116,13 @@
                             <li><a href="/about/faq.html">FAQ</a></li>
                             <li><a href="/about/merit-badges.html">Merit Badges</a></li>
                             <li><a href="/about/eagle.html">Path to Eagle</a></li>
-                            <li><a href="/about/smc.html">SMC &amp; BOR</a></li>
+                            <li><a href="/about/smc.html">SMC & BOR</a></li>
                             <li><a href="/about/plc.html">PLC</a></li>
                             <li><a href="/about/troop-info.html">Troop Information</a></li>
                             <li><a href="/about/troop-jobs.html">Troop Jobs</a></li>
                         </ul>
                     </li>
-                    <li id="nav-user-status"><a onclick="window.location.href = '/logout.html?redir=' + encodeURIComponent(window.location.pathname);">Logout</a></li>
+                    <li id="nav-user-status"><a onclick="window.location.href = '/logout.html?redir=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash);">Logout</a></li>
 
                 </ul>
 
@@ -130,7 +131,7 @@
     </nav>
     <div id="alertBox"></div>
 
-    <a id="toTop" onclick="window.location.hash='#'"></a>
+    <a class="toTop" href="#"></a>
     <p id="loading2">Loading...</p>
     <div class="container hidden" id="login">
 
@@ -140,7 +141,7 @@
                 <h2 class="intro-text text-center">Login to continue</h2>
                 <hr>
                 <p>
-                    <a class="btn btn-block btn-social btn-google no-fancy-link" onclick="window.location.href = '/login.html?redir=' + encodeURIComponent(window.location.pathname)">
+                    <a class="btn btn-block btn-social btn-google no-fancy-link" onclick="window.location.href = '/login.html?redir=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash)">
                         <span class="fa fa-google"></span> Sign in with Google
                     </a>
                 </p>
@@ -168,22 +169,27 @@
 
                 <div id="event-list-box">
                     <hr>
-
                     <h2 class="intro-text text-center">Event Pages</h2>
-
                     <hr>
-
-
-
                     <ul id="event-list"></ul>
-
-
-
-
-
                     </ul>
+                    <div class="accordion-group">
+                        <button class="viewmore btn btn-default" data-toggle="collapse" href="#collapse" onclick="if(this.innerHTML === 'Show Archived Event Pages') {this.innerHTML = 'Hide Archived Event Pages'} else {this.innerHTML = 'Show Archived Event Pages'}">Show Archived Event Pages</button>
+                        <div id="collapse" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <p><b>Archived Event Pages:</b><br>These are no longer maintained, and may be outdated. They are kept only for historical reasons. If you are a SIC, however, this may be helpful to you.<br></p>
+                                <ul id="archived-event-list">
+
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
+
 
 
         </div>
@@ -193,7 +199,9 @@
                 <hr>
                 <h2 class="intro-text text-center">Create New Event Page</h2>
                 <hr>
-                <b>When choosing a name, try to add the current year to the name so people can differentiate between the same event on different years.</b>
+                <b>When choosing a name, try to add the current year to the name so people can differentiate between the same event on different years. You can view a guide to event pages
+                <a href="https://docs.google.com/presentation/d/1RfAZvUzIIWP8U3rwf0ORi3J88hB4p1QkhhW9qJENGsY/edit">here</a>. If you want a hidden event page(link is required to access), 
+                an custom link(for a larger event), or need custom featues, you can contact the webmaster.</b>
                 <br>
                 <label>Choose An Event Name(You can change this later):</label>
 
@@ -272,7 +280,9 @@
 
                 $("#error").html("");
                 let title = $("#name").val();
-
+                if (title == "" || title == undefined || title == null) {
+                    title = "untitled event page"
+                }
 
                 let push = firebase.database().ref("/events/").push({
                     title: title,
@@ -304,9 +314,17 @@
             });
         });
         firebase.database().ref("/events/").on("child_added", data => {
-
             let name = data.val().title;
-            $("#event-list").prepend("<li><a class='name' href='/event.html?event=" + data.key + "'>" + name + "</a></li>");
+            let id;
+            if (data.val().archived === true) {
+                id = "#archived-event-list"
+            }
+            else {
+                id = "#event-list"
+            }
+            if (data.val().hidden !== true) {
+                $(id).prepend("<li><a class='name' href='/event.html?event=" + data.key + "'>" + name + "</a></li>");
+            }
         });
     </script>
 

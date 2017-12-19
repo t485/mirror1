@@ -11,7 +11,7 @@
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
     <script>
         // Initialize Firebase
-        var config = {
+        let config = {
             apiKey: "AIzaSyAvhRMDTAxHRqIM0-RpHxPjZtMn7S_H7K4",
             authDomain: "t485.firebaseapp.com",
             databaseURL: "https://t485.firebaseio.com",
@@ -57,11 +57,11 @@
         .hidden {
             display: none;
         }
-        
+
         .print {
             display: none;
         }
-        
+
         @media print {
             * {
                 visibility: hidden;
@@ -75,12 +75,12 @@
                 display: block;
             }
         }
-        
+
         #export-description {
             resize: vertical;
             /* user can resize vertically, but width is fixed */
         }
-        
+
         #main-inner-box {
             word-wrap: break-word;
         }
@@ -129,6 +129,7 @@
                             <li><a href="/resources/event-pages.html">Event Pages</a></li>
                             <li><a href="/resources/meeting-minutes.html">Meeting Minutes/Reflections</a></li>
                             <li><a href="/resources/pictures.html">Pictures</a></li>
+                            <li><a href="https://ls.t485.org/">Link Shortener</a></li>
                             <li><a href="/resources/app-download.html">Download App</a></li>
                         </ul>
                     </li>
@@ -140,27 +141,36 @@
                             <li><a href="/about/faq.html">FAQ</a></li>
                             <li><a href="/about/merit-badges.html">Merit Badges</a></li>
                             <li><a href="/about/eagle.html">Path to Eagle</a></li>
-                            <li><a href="/about/smc.html">SMC &amp; BOR</a></li>
+                            <li><a href="/about/smc.html">SMC & BOR</a></li>
                             <li><a href="/about/plc.html">PLC</a></li>
                             <li><a href="/about/troop-info.html">Troop Information</a></li>
                             <li><a href="/about/troop-jobs.html">Troop Jobs</a></li>
                         </ul>
                     </li>
-                    <li id="nav-user-status"><a onclick="window.location.href = '/logout.html?redir=' + encodeURIComponent(window.location.pathname);">Logout</a></li>
+                    <li id="nav-user-status"><a onclick="window.location.href = '/logout.html?redir=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash);">Logout</a></li>
 
                 </ul>
 
             </div>
         </div>
     </nav>
+    <!-- BTW Event pages were created by Jeffrey Meng in 2016 -->
     <div id="alertBox"></div>
     <div class="alert alert-info alert-dismissible alert-visible hidden" role="alert" id="edit-alert-box">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <span id="edit-alert">You <span id="role-owner" class="hidden">are the owner of</span><span id="role-editor" class="hidden">are using an access link for</span> this event page.<br> Options: <a id="edit" class="alert-link">edit</a> | <a id="export"
-            class="alert-link">Export/Send</a> | <a id="share" class="hidden alert-link">Allow others to edit this page.</a>
-        <!--DONT WANT THEM TO DELETE EVENT PAGES. I WANT THEM TO KEEP IT FOR ARCHIVAL REASONS<a id="delete" class="hidden alert-link"> Delete this page.</a>--></span>
+        <span id="edit-alert">You <span id="role-owner" class="hidden">are the owner of</span><span id="role-editor" class="hidden">are using an access link for</span> this <span class="hidden" id="archived-span">archived</span> event page.<br>
+        <span
+            id="options">Options: <a id="edit" class="alert-link">edit</a> | <a id="export" class="alert-link">Export/Send</a> <span id="share-box" class="hidden">| <a id="share" class="alert-link">Allow others to edit this page</a></span> |
+            <a id="delete" class="hidden alert-link"> Archive this page</a>.</span>
+            </span>
     </div>
-
+    <div class="alert alert-warning alert-dismissible alert-visible hidden" role="alert" id="archived-alert-box">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> This event page has been archived. Archived event pages are no longer maintained, and may be outdated. These are kept
+        only for historical reasons.<span id="archived-page-owner" class="hidden"><br>(You own this event page. You can email the webmaster to unarchive it.)</span><span id="archived-page-access" class="hidden"><br>(You're using an access link for this event page.)</span></span>
+    </div>
+    <div class="alert alert-warning alert-dismissible alert-visible hidden" role="alert" id="hidden-alert-box">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> This event page has been hidden. You can only view it via a direct link(which you are). It is not avaliable on the list of event pages.</span>
+    </div>
     </div>
     </p>
     <p id="loading">Loading...</p>
@@ -172,7 +182,7 @@
                 <h2 class="intro-text text-center">Login to continue</h2>
                 <hr>
                 <p>
-                    <a class="btn btn-block btn-social btn-google no-fancy-link" onclick="window.location.href = '/login.html?redir=' + encodeURIComponent(window.location.pathname)">
+                    <a class="btn btn-block btn-social btn-google no-fancy-link" onclick="window.location.href = '/login.html?redir=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash)">
                         <span class="fa fa-google"></span> Sign in with Google
                     </a>
                 </p>
@@ -231,13 +241,18 @@
     <script src="/js/tinymce/tinymce.min.js"></script>
     <script src="/js/jspdf.min.js"></script>
     <script src="/js/printthis.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+
     <!--authentication checkpoint -->
     <script>
         $("#loading").addClass("hidden");
         auth(() => $("#content").removeClass("hidden"), () => $("#login").removeClass("hidden"));
     </script>
     <script>
-        /* global firebase $ getQuery tinymce btoa auth jsPDF*/
+        /* global firebase $ getQuery tinymce btoa auth jsPDF Clipboard*/
+
+        new Clipboard('.clipboard');
+
         function deleteLink(id) {
             console.log("deleting: " + id)
             firebase.database().ref('/events/' + getQuery("event") + "/editlinks/" + id).set(null);
@@ -257,13 +272,14 @@
         $(".at").html("@");
         $(".event-page-url").html("https://t485.org/event.html?event=" + getQuery("event"));
         if (getQuery("event") === null || getQuery("event") === "") {
-            window.location.href = "/files.html";
+            window.location.href = "/resources/event-pages.html";
         }
         firebase.database().ref('/events/' + encodeURIComponent(getQuery("event"))
             /*URL is url safe anyways, this is to trigger the data = null 404
                     when the event contains non URL safe charcters*/
         ).once('value').then(snapshot => {
             let data = snapshot.val();
+
             if (data === null || data === 0) {
                 $("#event-title").html("Error 404: Event Not Found");
                 $("#event-description").html("The specified event <b>" + getQuery("event") + "</b> was not found. If you typed in a link to view this page, try going to the <a href='resources/event-pages.html'>event pages list</a> and clicking a link from there.");
@@ -273,6 +289,12 @@
 
             }
             else {
+                if (snapshot.val().archived === true) {
+                    $("#archived-alert-box").removeClass("hidden");
+                }
+                if (snapshot.val().hidden === true) {
+                    $("#hidden-alert-box").removeClass("hidden");
+                }
                 $("#event-title").html(data.title);
                 $("#event-description").html(data.description);
                 $(".event-title").html(data.title);
@@ -286,15 +308,15 @@
 
         function main() {
             /*
-            var modalreg = /^https?:\/\/((docs\.google\.com\/document\/d.*)|(.+\.pdf([?#].*)?))$/;
-            $("#event-description a").each(function(i) {
+            let modalreg = /^https?:\/\/((docs\.google\.com\/document\/d.*)|(.+\.pdf([?#].*)?))$/;
+            $("#event-description a").each((i) => {
                 console.log("ASDF213");
                 console.log(i);
                 console.log($(this));
                 if ($(this).attr("href").match(modalreg)) {
                     console.log($(this).attr("href"));
                     console.log($(this).attr("href").replace(modalreg, "openModal(this, '" + $(this).attr("href") + "');"));
-                    var attrtxt = $(this).attr("href").replace(modalreg, "openModal(this, '" + $(this).attr("href") + "');");
+                    let attrtxt = $(this).attr("href").replace(modalreg, "openModal(this, '" + $(this).attr("href") + "');");
                     console.log("---");
                     console.log(attrtxt);
                     $(this).attr("onclick", attrtxt);
@@ -306,15 +328,15 @@
             */
             /*
             console.log(7)
-            $("#event-description a").each(function(i, el) {
+            $("#event-description a").each((i, el) => {
                 console.log(i);
-                var url = $(el).attr("href");
-                var html = $(el).html()
+                let url = $(el).attr("href");
+                let html = $(el).html()
                 console.log(url);
                 console.log(html);
                 console.log($(el));
                 console.log("a")
-                var modalreg = /^https?:\/\/((docs\.google\.com\/document\/d.*)|(.+\.pdf([?#].*)?))$/;
+                let modalreg = /^https?:\/\/((docs\.google\.com\/document\/d.*)|(.+\.pdf([?#].*)?))$/;
                 if (url.match(modalreg)) {
                     console.log("b")
                     $(el).attr("onclick", "openModal('" + url + "', '" + html + "')");
@@ -331,20 +353,20 @@
             */
             /*
             function forEachElement(selector, fn) {
-                var elements = document.querySelectorAll(selector);
-                for (var i = 0; i < elements.length; i++)
-                    fn(elements[i], i);
+                let elements = document.querySelectorAll(selector);
+                for (let element of elements)
+                    fn(element, i);
             }
 
-            forEachElement("#event-description a", function(el, i) {
+            forEachElement("#event-description a", (el, i) => {
                 console.log(i);
-                var url = el.getAttribute("href");
-                var html = el.innerHTML;
+                let url = el.getAttribute("href");
+                let html = el.innerHTML;
                 console.log(url);
                 console.log(html);
                 console.log(el);
                 console.log("a");
-                var modalreg = /^https?:\/\/((docs\.google\.com\/document\/d.*)|(.+\.pdf([?#].*)?))$/;
+                let modalreg = /^https?:\/\/((docs\.google\.com\/document\/d.*)|(.+\.pdf([?#].*)?))$/;
                 if (url.match(modalreg)) {
                     console.log("b");
                     el.setAttribute("onclick", "openModal('" + url + "', '" + html + "')");
@@ -357,15 +379,25 @@
                 }
             });
             */
-            if (getQuery("password") !== null) {
-                firebase.database().ref('/events/' + getQuery("event") + "/editlinks/").once('value').then(function(snapshot) {
+            if (getQuery("token") !== null) {
+                console.log('/events/' + getQuery("event") + "/editlinks/" + encodeURIComponent(getQuery("token")));
+                firebase.database().ref('/events/' + getQuery("event")).once('value').then((snapshot) => {
 
+                    //console.log(encodeURIComponent(getQuery("token")));
+                    //console.log(snapshot.val());
+                    //console.log(snapshot.val() === encodeURIComponent(getQuery("token")));
 
-                    if (snapshot.val() === encodeURIComponent(getQuery("token"))) {
-                        $("#role-editor").removeClass("hidden")
+                    if (snapshot.val().editlinks[encodeURIComponent(getQuery("token"))] === encodeURIComponent(getQuery("token")) && snapshot.val().archived === true) {
+
+                        $("#archived-page-access").removeClass("hidden");
+                    }
+                    else if (snapshot.val().editlinks[encodeURIComponent(getQuery("token"))] === encodeURIComponent(getQuery("token")) && snapshot.val().archived !== true) {
+                        console.log(1);
+                        $("#role-editor").removeClass("hidden");
                         $("#edit-alert-box").removeClass("hidden");
+                        console.log(2);
                         $("#edit").click(() => {
-                            $(window).on("beforeunload", function() {
+                            $(window).on("beforeunload", () => {
                                 return 'Changes you made may not be saved';
                             });
                             $("#edit-alert").html("Click on some text to edit it. After you edit some text, click save changes on the toolbar that pops up. This will save the text only on the paragraph you selected. Or <a id='view' class='alert-link'>View this page</a>.");
@@ -375,7 +407,7 @@
                             });
 
                             function modalURLConverter(url, node, on_save, name) {
-                                var modalreg = /^https?:\/\/((docs\.google\.com\/document\/d.*)|(.+\.pdf([?#].*)?))$/;
+                                let modalreg = /^https?:\/\/((docs\.google\.com\/document\/d.*)|(.+\.pdf([?#].*)?))$/;
                                 url = tinymce.convertURL(url)
                                 if (url.match(modalreg)) {
                                     return "javascript:openModal(this, '" + url + "');";
@@ -465,10 +497,13 @@
             auth(user => {
                 firebase.database().ref('/events/' + getQuery("event")).once('value').then(snapshot => {
                     let uid = snapshot.val().owner;
-                    if (uid === user.uid) {
+                    if (uid === user.uid && snapshot.val().archived === true) {
+                        $("#archived-page-owner").removeClass("hidden");
+                    }
+                    else if (uid === user.uid && snapshot.val().archived !== true) {
                         $("#role-owner").removeClass("hidden")
                         $("#edit-alert-box").removeClass("hidden");
-                        $("#share").removeClass("hidden");
+                        $("#share-box").removeClass("hidden");
                         $("#delete").removeClass("hidden");
 
 
@@ -480,7 +515,7 @@
                                 if (($("#confirm-enter-name").val().toLowerCase() === snapshot.val().title.toLowerCase()) && getQuery("event") !== null) {
                                     $("#confirm-delete-button").removeClass("disabled");
                                     $("#confirm-delete-button").on("click", () => {
-                                        firebase.database().ref('/events/' + getQuery("event")).set(null);
+                                        firebase.database().ref('/events/' + getQuery("event") + "/archived/").set(true);
                                         $("#confirm-delete").modal("hide");
                                         window.location.href = "resources/event-pages.html";
                                     });
@@ -495,14 +530,14 @@
                         $("#share").click(() => {
                             $("#links").html("");
 
-                            firebase.database().ref('/events/' + getQuery("event") + "/editlinks/").on("value", function(snapshot) {
+                            firebase.database().ref('/events/' + getQuery("event") + "/editlinks/").on("value", (snapshot) => {
 
-                                var data = snapshot.val()
+                                let data = snapshot.val();
 
-                                for (var key in data) {
+                                for (let key in data) {
                                     if (data.hasOwnProperty(key)) {
                                         console.log(key + " -> " + data[key]);
-                                        $("#links").append("<li><b>https://t485.org/event.html?event=" + getQuery("event") + "&token=" + data[key] + "</b> (<a onclick='deleteLink(\"" + data[key] + "\")'>Remove This Link</a>)</li><hr>");
+                                        $("#links").append("<li><b id='el-" + encodeURIComponent(data[key]) + "'>https://t485.org/event.html?event=" + getQuery("event") + "&token=" + data[key] + "</b> (<a onclick='deleteLink(\"" + data[key] + "\")'>Remove This Link</a> | <a class='clipboard' data-clipboard-target='#el-" + encodeURIComponent(data[key]) + "'>Copy to clipboard</a>)</li><hr>");
                                     }
                                 }
 
@@ -518,7 +553,7 @@
 
                         });
                         $("#edit").click(() => {
-                            $(window).on("beforeunload", function() {
+                            $(window).on("beforeunload", () => {
                                 return 'Changes you made may not be saved';
                             });
                             $("#edit-alert").html("Click on some text to edit it. After you edit some text, click save changes on the toolbar that pops up. This will save the text only on the paragraph you selected. Or <a id='view' class='alert-link'>View this page</a>.");
@@ -697,7 +732,7 @@
         /*function modalURLConverter(url, node, on_save, name) {
             console.log(node);
             console.log(name);
-            var modalreg = /^https?:\/\/((docs\.google\.com\/document\/d.*)|(.+\.pdf([?#].*)?))$/;
+            let modalreg = /^https?:\/\/((docs\.google\.com\/document\/d.*)|(.+\.pdf([?#].*)?))$/;
             if (url.match(modalreg)) {
                 return "javascript:openModal('" + url + "');";
             }
@@ -808,9 +843,10 @@
                 </div>
                 <div class="modal-body" id="modal-body">
                     <h6>Dangrous Things will happen if you don't pay attention!</h6>
-                    <p class="test-danger">You are about to delete a event page. In order to proceed, please type in the name of the event page you are trying to delete.</p>
+                    <p class="test-danger">You are about to archive a event page. <b>Once you archive an event page, you will not be able to edit or export it anymore. You can ask the webmaster to unarchive it if you need to.</b> In order to proceed, please type in the name
+                        of this event page.</p>
                     <input class="form-control" type="text" id="confirm-enter-name">
-                    <button class="form-control btn btn-danger disabled" id="confirm-delete-button">Delete</button>
+                    <button class="form-control btn btn-danger disabled" id="confirm-delete-button">Archive</button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" onclick="window.location.hash = '';" data-dismiss="modal">Close</button>

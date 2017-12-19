@@ -1,6 +1,6 @@
 //========================================================= DANGER ZONE BELOW ===========================================
-var mode = "mirror"; // normal", "mirror", "redirect"
-var data = 1; //specific to above mode, see below 
+let mode = "mirror"; // normal", "mirror", "redirect"
+let data = 1; //specific to above mode, see below 
 /* Modes:
 normal:
     normal, site should be loaded from github.com/t485/t485
@@ -14,26 +14,28 @@ redirect:
     onle use if this is the website loaded from the normal repository, and is LOADED, but does not work(not live, etc.)
     data should contain a string with an url to redirect to. INCLUDE PROTOCOL, CURRENT PATH AUTOMATICALLY APPENDED, SO DO NOT INCLUDE TRAILING SLASH
 */
-if (mode === "redirect") {
-    $(document).ready(function() {
-        $("#alertBox").html('<div class="alert alert-warning">' +
-            '  <strong>Warning!</strong> You are being redirected to a mirror of t485.org because the main site is undergoing mantiance. If you are not automatically redirected in a few seconds, go to this URL: <a href="' + data + '">' + data + '</a>' +
-            '</div>');
-    });
-    window.location.href = data + window.location.pathname;
-}
-else if (mode === "mirror") {
-    $(document).ready(function() {
-        //console.log(2);
-        $("#alertBox").html('<div class="alert alert-warning">' +
-            '  <strong>Warning!</strong> You are currently viewing mirror ' + data + ' of the t485.org website. If you got redirected here by typing in https://t485.org, then the t485.org main site may be undergoing mantiance or is not working at this moment. This mirror is a fully functional version of the main site, but it may be slightly outdated.' +
-            '</div>');
-    });
-    //console.log(3);
-}
-else {
-    //assume mode is normal, don't do anything
-}
+
+    if (mode === "redirect" && getQuery("mirror-no-redirect") !== "true") {
+        $(document).ready(function() {
+            $("#alertBox").html('<div class="alert alert-warning">' +
+                '  <strong>Warning!</strong> You are being redirected to a mirror of t485.org because the main site is undergoing mantiance. If you are not automatically redirected in a few seconds, go to this URL: <a href="' + data + '">' + data + '</a>' +
+                '</div>');
+        });
+        window.location.href = data + window.location.pathname;
+    }
+    else if (mode === "mirror") {
+        $(document).ready(function() {
+            //console.log(2);
+            $("#alertBox").html('<div class="alert alert-warning">' +
+                '  <strong>Warning!</strong> You are currently viewing mirror ' + data + ' of the t485.org website. If you got redirected here by typing in https://t485.org, then the t485.org main site may be undergoing mantiance or is not working at this moment. This mirror is a fully functional version of the main site, but it may be slightly outdated.' +
+                '</div>');
+        });
+        //console.log(3);
+    }
+    else {
+        //assume mode is normal, don't do anything, this is here just as a reminder.
+    }
+
 // ====================================================== END DANGER ZONE - DANGER ZONE ABOVE ===========================
 (() => {
     // remove leading slash
@@ -60,6 +62,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     //$("#nav-user-email").html(" as " + user.providerData[0].email);
     $("#nav-user-status").removeClass("hidden");
   } else {
+      $("#nav-user-status").addClass("hidden");
     // No user is signed in, do nothing. Individual login script is on each page.
   }
 });
@@ -68,12 +71,18 @@ firebase.auth().onAuthStateChanged(function(user) {
 // Back to top button animation
 $(window).scroll(function() {
     if ($(this).scrollTop() > 0) {
-        $('#toTop').fadeIn(3000);
+        $('.toTop').fadeIn(3000);
     }
     else {
-        $('#toTop').fadeOut();
+        $('.toTop').fadeOut();
     }
 });
+
+//Trying to fix things but its hard
+$('.toTop').click(function(){
+		$('html, body').animate({scrollTop : 0},800);
+		return false;
+	});
 
 //email bot obfuscator sort of...
 $(".at").text("@")
@@ -118,18 +127,18 @@ function auth(onAuthed, onUnauthed) {
 
 // Source: http://www.w3schools.com/js/js_cookies.asp
 function setCookie(name, value, exdays) {
-    var d = new Date();
+    let d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires="+ d.toUTCString();
+    let expires = "expires="+ d.toUTCString();
     document.cookie = name + "=" + value + ";" + expires + ";path=/";
 }
 
 
 function getCookie(name) {
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
         while (c.charAt(0) == ' ') {
             c = c.substring(1);
         }
@@ -141,7 +150,7 @@ function getCookie(name) {
 }
 
 function getVarsFromUrl() {
-    var vars = {};
+    let vars = {};
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
         vars[key] = value;
     });
@@ -150,8 +159,8 @@ function getVarsFromUrl() {
 
 // Fisher-Yates shuffle
 function generateRandomNums(r) {
-    for (var a = [], n = 0; r > n; n++) a[n] = n;
-    for (var o, e, t = r; t;) e = ~~(Math.random() * t), t -= 1, o = a[t], a[t] = a[e], a[e] = o;
+    for (let a = [], n = 0; r > n; n++) a[n] = n;
+    for (let o, e, t = r; t;) e = ~~(Math.random() * t), t -= 1, o = a[t], a[t] = a[e], a[e] = o;
     return a
 }
 
@@ -161,7 +170,7 @@ function countdown(n, t, e) {
     function o() {
         a = n - ((Date.now() - c) / 1e3 | 0), u = a / 60 | 0, w = a % 60 | 0, u = 10 > u ? '0' + u : u, w = 10 > w ? '0' + w : w, t.textContent = u + ':' + w, 0 >= a && ('reset' === e || null === e ? c = Date.now() + 1e3 : e())
     }
-    var a, u, w, c = Date.now();
+    let a, u, w, c = Date.now();
     o(), setInterval(o, 1e3)
 }
 
@@ -169,7 +178,7 @@ function countdown(n, t, e) {
 // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
 function getQuery(e) {
     e = e.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var c = new RegExp("[\\?&]" + e + "=([^&#]*)"),
+    let c = new RegExp("[\\?&]" + e + "=([^&#]*)"),
         n = c.exec(location.search);
     return null === n ? "" : decodeURIComponent(n[1].replace(/\+/g, " "))
 }
@@ -179,9 +188,9 @@ function getQuery(e) {
 function compare(t, n) {
     if (0 == t.length) return n.length;
     if (0 == n.length) return t.length;
-    var r, e = [];
+    let r, e = [];
     for (r = 0; r <= n.length; r++) e[r] = [r];
-    var h;
+    let h;
     for (h = 0; h <= t.length; h++) e[0][h] = h;
     for (r = 1; r <= n.length; r++)
         for (h = 1; h <= t.length; h++) n.charAt(r - 1) == t.charAt(h - 1) ? e[r][h] = e[r - 1][h - 1] : e[r][h] = Math.min(e[r - 1][h - 1] + 1, Math.min(e[r][h - 1] + 1, e[r - 1][h] + 1));
