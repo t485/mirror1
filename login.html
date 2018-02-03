@@ -163,7 +163,7 @@
         }
 
         else {
-            let redirectUrl = "https://t485.org" + (decodeURIComponent(getQuery('redir')) || 'index.html');
+            let redirectUrl = "https://t485.org" + (decodeURIComponent(getQuery('redir')) || '/index.html');
             let provider = new firebase.auth.GoogleAuthProvider();
             provider.addScope('https://www.googleapis.com/auth/userinfo.email');
             document.getElementById("cancel").addEventListener("click", () => {
@@ -210,6 +210,9 @@
                         else {
                             console.log("error");
                         }
+                    } else {
+                        console.log("ready state not 4");
+                        console.log(this.readyState);
                     }
                 };
                 request.send();
