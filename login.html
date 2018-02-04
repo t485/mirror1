@@ -100,23 +100,36 @@
     <title>Login to T485.org</title>
 </head>
 
-<body><noscript>Javascrpt must be enabled to use the login feature of T485. Please whitelist javascript for this website or the content below will not work. </noscript><br><br>
-    
-        <div id="login-main-box">
-            <h1>Initalizing login<span id="testing" class="hidden">(Testing Mode, will not redirect or authenticate)</span></h1>
-            <p>This may take up to 15 seconds with a normal internet connection. <a id="cancel" class="btn btn-danger">Click here to cancel and return to the main page</a>, or <a href="https://t485.org" class="text-danger">Force cancel(if cancel link is broken)</a></p>
-            <div class="spinner">
-                <div class="double-bounce1"></div>
-                <div class="double-bounce2"></div>
-            </div>
+<body>
+    <noscript>Javascrpt must be enabled to use the login feature of T485. Please whitelist javascript for this website or the content
+        below will not work. </noscript>
+    <br>
+    <br>
 
+    <div id="login-main-box">
+        <h1>Initalizing login
+            <span id="testing" class="hidden">(Testing Mode, will not redirect or authenticate)</span>
+        </h1>
+        <p>This may take up to 15 seconds with a normal internet connection.
+            <a id="cancel" class="btn btn-danger">Click here to cancel and return to the main page</a>, or
+            <a href="https://t485.org" class="text-danger">Force cancel(if cancel link is broken)</a>
+        </p>
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
         </div>
-        <div id="not-member" class="hidden col-lg-12">
-            <h1>Error: Unauthorized Email Address</h1>
-            <p>The Google account used to authenticate was not one recognized by the Troop 485 members list. If you believe this is a mistake, you can contact the webmaster.</p><br>
-            <br> <a onclick="window.location.href = window.location.href;" class="btn btn-primary btn-block">Try again</a>
-            <br><br>
-            <a href="/index.html" class="btn btn-danger btn-block">Return to home page</a>
+
+    </div>
+    <div id="not-member" class="hidden col-lg-12">
+        <h1>Error: Unauthorized Email Address</h1>
+        <p>The Google account used to authenticate was not one recognized by the Troop 485 members list. If you believe this
+            is a mistake, you can contact the webmaster.</p>
+        <br>
+        <br>
+        <a onclick="window.location.href = window.location.href;" class="btn btn-primary btn-block">Try again</a>
+        <br>
+        <br>
+        <a href="/index.html" class="btn btn-danger btn-block">Return to home page</a>
 
 
     </div>
@@ -133,7 +146,7 @@
             messagingSenderId: "510743665020"
         }
 
-        ;
+            ;
         firebase.initializeApp(config);
     </script>
     <script>
@@ -183,40 +196,44 @@
                 // The signed-in user info.
                 let user = result.user;
                 let email = user.providerData[0].email;
-                let request = new XMLHttpRequest();
+                var request = new XMLHttpRequest();
                 request.open('GET', 'members', true);
-                request.onreadystatechange = () => {
-                    if (this.readyState === 4) {
-                        if (this.status >= 200 && this.status < 400) {
-                            // Success!
-                            let response = this.responseText;
-                            let members = response.split('\n');
-                            // Check if email is on approved list
-                            if (members.indexOf(email) > -1) {
-                                window.location.href = redirectUrl;
-                            }
-                            else {
-                                let className = "hidden";
-                                let el = document.getElementById("login-main-box");
-                                if (el.classList)
-                                    el.classList.add(className);
-                                else
-                                    el.className += ' ' + className;
-                                el = document.getElementById("not-member");
-                                if (el.classList) el.classList.remove("hidden");
-                                else el.className = el.className.replace(new RegExp('(^|\\b)' + "hidden".split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-                            }
+
+                request.onload = function () {
+                    if (request.status >= 200 && request.status < 400) {
+                        // Success!
+                        var resp = request.responseText;
+                        let members = response.split('\n');
+                        // Check if email is on approved list
+                        if (members.indexOf(email) > -1) {
+                            window.location.href = redirectUrl;
                         }
                         else {
-                            console.log("error");
+                            let className = "hidden";
+                            let el = document.getElementById("login-main-box");
+                            if (el.classList)
+                                el.classList.add(className);
+                            else
+                                el.className += ' ' + className;
+                            el = document.getElementById("not-member");
+                            if (el.classList) el.classList.remove("hidden");
+                            else el.className = el.className.replace(new RegExp('(^|\\b)' + "hidden".split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
                         }
                     } else {
-                        console.log("ready state not 4");
-                        console.log(this.readyState);
+                        // We reached our target server, but it returned an error
+                        console.log("error")
                     }
                 };
+
+                request.onerror = function () {
+                    // There was a connection error of some sort
+
+                    console.log("error");
+                };
+
                 request.send();
-                request = null;
+
+               
                 // ...
             }).catch(error => {
                 // Handle Errors here.
