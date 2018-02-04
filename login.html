@@ -150,6 +150,10 @@
         firebase.initializeApp(config);
     </script>
     <script>
+        // Data
+    var members = JSON.parse(atob("WyIxNjhjYXNleUBnbWFpbC5jb20iLCIyMDE0d2NoZW5nQGdtYWlsLmNvbSIsImFhcm9uaXNhd2Vzb21lcmVzdEBnbWFpbC5jb20iLCJhY2Zrb25nQHlhaG9vLmNvbSIsImFsYmVydHdhbmcwMjE0QGdtYWlsLmNvbSIsImFsZXhzdzIwMTJAZ21haWwuY29tIiwiYWxleHoxMjM5OEBnbWFpbC5jb20iLCJhbmNodWFuX3dhbmdAeWFob28uY29tIiwiYW5kcmV3emhlbmc4QGdtYWlsLmNvbSIsImFuaXRheWxpbkB5YWhvby5jb20iLCJhcnRib3dvbmdAZ21haWwuY29tIiwiYXdlc29tZW5lc3NyaWNoYXJkMkBnbWFpbC5jb20iLCJiYXJvbndhbmcxMDIxQGdtYWlsLmNvbSIsImJjaGFuZy42MDk2QGdtYWlsLmNvbSIsImJlbmphbWluZ2FvOTlAZ21haWwuY29tIiwiYmpkbGg5OUBnbWFpbC5jb20iLCJibmt3dTA4QGdtYWlsLmNvbSIsImJua3d1QHlhaG9vLmNvbSIsImJvd2VuamlhbmdAZ21haWwuY29tIiwiYnJhbmRvbnlrbGlAZ21haWwuY29tIiwiYnJhbmRvbnl1YW42OEBnbWFpbC5jb20iLCJic2E0ODVAZ21haWwuY29tIiwiQ2FzZXkxNjhAaG90bWFpbC5jb20iLCJjaGFuZ19jaGl3ZWlAeWFob28uY29tIiwiY2hlbi5ob25nLjY2QDE2My5jb20iLCJjaGVycnl3Zi5nb25nQGdtYWlsLmNvbSIsImNoaHVhbmd3QG1zbi5jb20iLCJjaGllbmxpbmcubG9AZ21haWwuY29tIiwiY2luZHljdWkxMjM5QGdtYWlsLmNvbSIsImNpbmR5Y3VpNDQ2MTIzOUB5YWhvby5jb20uY24iLCJjbGFyYXdvbmcuc3NAZ21haWwuY29tIiwiY2xwY2w4OEBnbWFpbC5jb20iLCJjbmxhdTEyMzVAeWFob28uY29tIiwiY29uYW4xMjM1QGdtYWlsLmNvbSIsImN0X2thb0B5YWhvby5jb20iLCJkYWx1bmJhb0B5YWhvby5jb20iLCJkYW5pZWxAY2hlbmhvbWUub3JnIiwiZGFuaWVsY3lhb0BnbWFpbC5jb20iLCJkYW5pZWxuaW5neDgwQGdtYWlsLmNvbSIsImRhbmllbHpsaW5AeWFob28uY29tIiwiZGFuaW1hbDAyMjFAZ21haWwuY29tIiwiZGFwaW5nLnpoYW5nQGdtYWlsLmNvbSIsImRhdmlkMDIxMzAxQGdtYWlsLmNvbSIsImRhdmlkY2Nob0BnbWFpbC5jb20iLCJkZGF5NDA0MEBnbWFpbC5jb20iLCJkankyMHdAZ21haWwuY29tIiwiZG9uZ3lpbmdtYUB5bWFpbC5jb20iLCJkeWxhbnRzYWkxOTk5dDQ4NUBnbWFpbC5jb20iLCJlYWdsZWJlbmphbWludEBnbWFpbC5jb20iLCJlZGJlcnRqYW9AZ21haWwuY29tIiwiZW1pbHloYWl5YW5saXVAZ21haWwuY29tIiwiZXBpY3NvY2NlcmhlbnJ5QGdtYWlsLmNvbSIsImVyaWMuei5jYXJAZ21haWwuY29tIiwiZXRoYW5fbGlhbkB0c21jLmNvbSIsImV0aGFubGlhbkBnbWFpbC5jb20iLCJldXJheTQyMDFAZ21haWwuY29tIiwiZXZhbmxlZTE2ODhAZ21haWwuY29tIiwiZmNoZW4xOTkxQGdtYWlsLmNvbSIsImZsX3lhbmdAeWFob28uY29tIiwiZm9yZXN0eWFuZzgwQGdtYWlsLmNvbSIsImZvcnNoaXJsZXlrQGdtYWlsLmNvbSIsImZyYW5reWFvMzMzQGdtYWlsLmNvbSIsImZ3b25nOTQzMDZAZ21haWwuY29tIiwiZ2Fycmljay5jaGFuZ0BnbWFpbC5jb20iLCJnY2FvXzk5QHlhaG9vLmNvbSIsImdsZW5jaGVuMTA1NkBnbWFpbC5jb20iLCJnb2dvZGFuZGFuQGdtYWlsLmNvbSIsImd1YW4uam9uYXRoYW4xQGdtYWlsLmNvbSIsImd1YW5kZW5pc2VAc2JjZ2xvYmFsLm5ldCIsImd1b2xpbi55YW5nQGdtYWlsLmNvbSIsImd1b3NodTgxMDFAZ21haWwuY29tIiwiZ3h4ay5tYXhAZ21haWwuY29tIiwiaGFnZW56aGFuZzIwMTVAZ21haWwuY29tIiwiaGFpbWluZ3RAeWFob28uY29tIiwiaGFydmV5LnlhbmcuMTEyNkBnbWFpbC5jb20iLCJoZWxlbmhvbkBnbWFpbC5jb20iLCJoZXdsZXR0cnlAZ21haWwuY29tIiwiaGphY29iaG9AZ21haWwuY29tIiwiaG5pZTcxQGdtYWlsLmNvbSIsImhvbmcuY2hlbkBnbWFpbC5jb20iLCJob25nejIwMDJAZ21haWwuY29tIiwiaHVtYmJyaW5nZXJAZ21haWwuY29tIiwiaWNlc3Rvcm1mMUBnbWFpbC5jb20iLCJpdGFjaGlqY0B5YWhvby5jb20iLCJqYWNvYm5pZTIwMDhAZ21haWwuY29tIiwiamFkZW5jd3VAZ21haWwuY29tIiwiamFuZS5jaGlhbmdAZ21haWwuY29tIiwiamFuZXRfeWF1QHlhaG9vLmNvbSIsImphc29ub2piQGdtYWlsLmNvbSIsImpjOTlkZEBnbWFpbC5jb20iLCJqZDk5ZGRAb3V0bG9vay5jb20iLCJqZWQubGVlOUBnbWFpbC5jb20iLCJqZWRkaHVpQGdtYWlsLmNvbSIsImplZGxlZTlAeWFob28uY29tIiwiamVmZmVyeW91a2VAZ21haWwuY29tIiwiamVmZmpsaTEyNEBnbWFpbC5jb20iLCJqZWZma21lbmdAZ21haWwuY29tIiwiamVmZm1lbmc3QGdtYWlsLmNvbSIsImplbm55d2FuZzEwMEBnbWFpbC5jb20iLCJqZXJlbWlhaGxiN0B5YWhvby5jb20iLCJqZXJyeWdhbzIwMTFAZ21haWwuY29tIiwiamlhbmp5YW9AZ21haWwuY29tIiwiamloZW5na2FvQGdtYWlsLmNvbSIsImppbV9tZWlAaG90bWFpbC5jb20iLCJqaW1iYWxsMjM0QGdtYWlsLmNvbSIsImppbmcuemhhb0BmYWlyY2hpbGRzZW1pLmNvbSIsImppbmdjaGVuNzJAZ21haWwuY29tIiwiamlueXVkb3Vkb3VAaG90bWFpbC5jb20iLCJqanVzdGlueEBnbWFpbC5jb20iLCJqbGFpOTUwMTRAeWFob28uY29tIiwiam9keTEwMjBAYW9sLmNvbSIsImpvaG5ueUBjaGVuaG9tZS5vcmciLCJqb2huc29uX2tvdUB5YWhvby5jb20iLCJqb25hdGhhbi50eS5sdUBnbWFpbC5jb20iLCJqb3NlcGhpbmVkbGVlQGdtYWlsLmNvbSIsImpvc2hAY2hlbmhvbWUub3JnIiwiam9zaHVheWluMjAwNUBnbWFpbC5jb20iLCJqb3NodWF6bWVpMzFAZ21haWwuY29tIiwiam95am95Y2VsaWFAZ21haWwuY29tIiwianVzdGluMTk5OEBnbWFpbC5jb20iLCJqeWFvMTI3MUBnbWFpbC5jb20iLCJqeXFpYW9AZ21haWwuY29tIiwiazFAc3B5ei5uZXQiLCJrZXJheWNoZW5AZ21haWwuY29tIiwia3MzMTAxQDE2My5jb20iLCJrd2VpODYyMDgyNkBnbWFpbC5jb20iLCJremhhbmc5OUBnbWFpbC5jb20iLCJsYWtlbWFuQGdtYWlsLmNvbSIsImxhbW90aW9uc3RAZ21haWwuY29tIiwibGFuc2hlbjIwMDhAZ21haWwuY29tIiwibGF3YXdzb21lYm95QGdtYWlsLmNvbSIsImxlY2h1bi5jLnd1QGdtYWlsLmNvbSIsImxlY2h1bl9jaGVuQHlhaG9vLmNvbSIsImxlZS5qYXlzb24uamF5c29uQGdtYWlsLmNvbSIsImxlb25sYXUzMTNAZ21haWwuY29tIiwibGVzYWNjQHFxLmNvbSIsImxnOTM5M0BnbWFpbC5jb20iLCJsaWdhb3Bpbmc5M0BnbWFpbC5jb20iLCJsaWxpX3lpQHlhaG9vLmNvbSIsImxpbHlsYXUzMTNAZ21haWwuY29tIiwibGluZGEuYy5iYW9AZ21haWwuY29tIiwibGluZGFjYWlAeWFob28uY29tIiwibGluemhhbzIwMDFAZ21haWwuY29tIiwibG5pdTAwMUBnbWFpbC5jb20iLCJsby5qZXJlbWlhaDlAZ21haWwuY29tIiwibG9fY2hpZW5AeWFob28uY29tIiwibG95b2xveTQwMkBnbWFpbC5jb20iLCJsc3VuMjAxMUBnbWFpbC5jb20iLCJsdzIzNTRAMTYzLmNvbSIsImx3MjM1NEB5YWhvby5jb20iLCJtYWdnaWV4dWx1QGdtYWlsLmNvbSIsIm1haWwudGlhbnlpZ0BnbWFpbC5jb20iLCJtYW5tYW4ucmVuQGdtYWlsLmNvbSIsIm1hcmdhcmV0Lnouemhhb0BnbWFpbC5jb20iLCJtYXJnYXJldF96aGFvQGhvdG1haWwuY29tIiwibWF0dC50c2FpLjU1QGdtYWlsLmNvbSIsIm1lbG9keUBjaGVuaG9tZS5vcmciLCJtZWxvZHl4aW9uZzcxMUBnbWFpbC5jb20iLCJtaWNoZWxsZS56aGFvQGdtYWlsLmNvbSIsIm1pY2t5MTgwMDhAZ21haWwuY29tIiwibWlsbHljaGFuZ3R0QGdtYWlsLmNvbSIsIm1pbm1tYUBnbWFpbC5jb20iLCJtdGhhbTg4QHlhaG9vLmNvbSIsIm5hdGhhbmJhb0BnbWFpbC5jb20iLCJuaW5qYWtpd2lmaWVuZEBnbWFpbC5jb20iLCJva2Nob2kwOUBnbWFpbC5jb20iLCJwYW5saW5fdXNAeWFob28uY29tIiwicGF0cmlja3kxNjhAZ21haWwuY29tIiwicGVpbGluamlhbmcyMDA3QGdtYWlsLmNvbSIsInBlaXh1ZS5saUBnbWFpbC5jb20iLCJwb3c4MjdAZ21haWwuY29tIiwicWlhb2RhdmlkNUBnbWFpbC5jb20iLCJxaXAxODAxQDE2My5jb20iLCJxaXAyNjM2QGdtYWlsLmNvbSIsInF3eHVAeWFob28uY29tIiwicmFjaGVsLnFpdTAzQGdtYWlsLmNvbSIsInJlcGx5MnZhbGVyaWVAZ21haWwuY29tIiwicmhzaWVoMjAwNUB5YWhvby5jb20iLCJyaWNoeS5saXUuMjAwMkBnbWFpbC5jb20iLCJybWVuZzIwMDZAZ21haWwuY29tIiwicnVpbGkyMDAwQGhvdG1haWwuY29tIiwicnh0YW5nQGdtYWlsLmNvbSIsInJ6aHNpZWgyMDEzQGdtYWlsLmNvbSIsInNhbW5nX2NjZkB5YWhvby5jb20iLCJzYW11ZWx0aW5nQGdtYWlsLmNvbSIsInNhbXVlbHRpbmdAeWFob28uY29tIiwic2FtdWVsd29uZy5saEBnbWFpbC5jb20iLCJzYy5pdnkuaHN1QGdtYWlsLmNvbSIsInNjb3V0aW5naXNjb29sOTlAeWFob28uY29tIiwic2NvdXRpbmdpc2Z1bjg4QHlhaG9vLmNvbSIsInNoZXJyeV96aGFuZ3l1QHlhaG9vLmNvbSIsInNodWplbmphb0BnbWFpbC5jb20iLCJzaHVxaW5nbGkyMDA3QGdtYWlsLmNvbSIsInNpc21ta0BnbWFpbC5jb20iLCJTa3libHVlMTA4NkBnbWFpbC5jbyIsInNreWJsdWUxMDg2QGdtYWlsLmNvbSIsInNsaXUzNzQ2QGdtYWlsLmNvbSIsInN0YXJkdXN0LnVzNTBAZ21haWwuY29tIiwic3RlcGhlbm1hbndvbmdAZ21haWwuY29tIiwic3RldmVuLm5ndXllbjEwNzA1QGdtYWlsLmNvbSIsInN0ZXZlbmppYW5nMjAwNEBnbWFpbC5jb20iLCJzdGV2ZW5rb3VAZ21haWwuY29tIiwic3l6Y3BhdGF4QGdtYWlsLmNvbSIsInQ0ODVic2FAeWFob28uY29tIiwidGIzNjkxMjdAaG90bWFpbC5jb20iLCJ0ZWRsZWV0ZWFtQGdtYWlsLmNvbSIsInRlZHlsZWVAbGl2ZS5jb20iLCJ0ZWhoZW55dUBnbWFpbC5jb20iLCJ0ZWhoZW55dUBob3RtYWlsLmNvbSIsInRlbmdvMTYyN0BnbWFpbC5jb20iLCJ0ZXJlc2FwYW4xMUBnbWFpbC5jb20iLCJ0ZXJlc2F3YW5nMTY4QGdtYWlsLmNvbSIsInRoYW5oMTA3MDVAZ21haWwuY29tIiwidGhhbmgxMDcwNUB5YWhvby5jb20iLCJ0aGUuY2FzcGVyLnd1QGdtYWlsLmNvbSIsInRoaXN1c2VyaXNzdXBlcmF3ZXNvbWVAZ21haWwuY29tIiwidGhvbWFzXzBfMjAwNEB5YWhvby5jb20iLCJ0aWFueXVlLnQueWFuZ0BnbWFpbC5jb20iLCJ0aW1vdGh5bDIwMUBnbWFpbC5jb20iLCJ0aW1vdGh5d3UyMDE0QGdtYWlsLmNvbSIsInRqMDMxMDFAZ21haWwuY29tIiwidGp6aG91cGpAZ21haWwuY29tIiwidG9kYXJyZW55QGdtYWlsLmNvbSIsInRvcnJleXZhY0BnbWFpbC5jb20iLCJ0cmFjZXkubWVuZ0BnbWFpbC5jb20iLCJ0d2lzdGVycGhhbnRvbTIxMkBnbWFpbC5jb20iLCJ0d29uZ19AeWFob28uY29tIiwidW5rbm93bnNvdWw5ODkxMEBnYW1pbC5jb20iLCJ1bmtub3duc3lydW1AZ21haWwuY29tIiwidml2YXdpbmRAZ21haWwuY29tIiwidml2aWFuX3RhbmdAeWFob28uY29tIiwid2FuZ3podW8xOTc0QGdtYWlsLmNvbSIsIndlaWd1YW5nLnl1QHlhaG9vLmNvbSIsIndlaWhvbmd6aGFuZ0Bob3RtYWlsLmNvbSIsIndlbi56aHUyMDA2QGdtYWlsLmNvbSIsIndoemhhbmc5OUBnbWFpbC5jb20iLCJ3aWxsLmkuYW0uZ2VnZWdhZ2FAZ21haWwuY29tIiwid2lsbGlhbWphb0B5YWhvby5jb20iLCJ3bXdjb21wQGhvdG1haWwuY29tIiwid29uZ2ZlbGljaWE4MDhAZ21haWwuY29tIiwieGlhb2NoZW4xMzNAZ21haWwuY29tIiwieGlhb2NodW4ubWVpQGdtYWlsLmNvbSIsInhpYW90b25nX2hlQHlhaG9vLmNvbSIsInhpY2hlbjA2QGdtYWlsLmNvbSIsInhpZV9ib0Bob3RtYWlsLmNvbSIsInhtemhvdUBnbWFpbC5jb20iLCJ4cHNob3BwaW5nQHlhaG9vLmNvbSIsInhyX3hpb25nQHlhaG9vLmNvbSIsInh1amlhbl91c0B5YWhvby5jb20iLCJ5YW5mYW5nekB5YWhvby5jb20iLCJ5YW5nMjI5MDY2QGdtYWlsLmNvbSIsInlhbm1hbWExQGdtYWlsLmNvbSIsInlhby5zaGFyb25AZ21haWwuY29tIiwieWFvaHhAeWFob28uY29tIiwieWF5cGVycnlAZ21haWwuY29tIiwieWlqaWVodWFuZzc3QGdtYWlsLmNvbSIsInlpbmdoYWlsdUBnbWFpbC5jb20iLCJ5amllLmxpdTEwQHlhaG9vLmNvbSIsInlvbmdwaW5nY2QwNEB5YWhvby5jb20iLCJ5b3dlaWxpdUBnbWFpbC5jb20iLCJ5dWFud2VuQGdtYWlsLmNvbSIsInl1aHVhX2MyMDAwQHlhaG9vLmNvbSIsInl1bmdjaGVuZ2xvQGdtYWlsLmNvbSIsInl6eG5AeW1haWwuY29tIiwiemhhb21laV96aGFuZ0B5YWhvby5jb20iLCJ6aGloYWl4dTIwMDBAeWFob28uY29tIiwiemxwYWMwNUBnbWFpbC5jb20iLCJ6b25naHVhbi53dUBnbWFpbC5jb20iLCJ6eWluNzFAZ21haWwuY29tIl0="));
+    </script>
+    <script>
         /* global firebase location localStorage */
 
         // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
@@ -196,6 +200,31 @@
                 // The signed-in user info.
                 let user = result.user;
                 let email = user.providerData[0].email;
+                
+                        // Check if email is on approved list
+                        if (members.indexOf(email) > -1) {
+                            window.location.href = redirectUrl;
+                        }
+                        else {
+                            firebase.auth().signOut().then(() => {
+            // Sign-out successful.
+        }, error => {
+            console.error(error);
+            let className = "hidden";
+                            let el = document.getElementById("login-main-box");
+                            if (el.classList)
+                                el.classList.add(className);
+                            else
+                                el.className += ' ' + className;
+                            el = document.getElementById("not-member");
+                            if (el.classList) el.classList.remove("hidden");
+                            else el.className = el.className.replace(new RegExp('(^|\\b)' + "hidden".split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        });
+                            
+                        }
+                //BEGIN UNUSED_BLOCK old_request old ajax request
+                /*
+
                 var request = new XMLHttpRequest();
                 request.open('GET', 'members', true);
 
@@ -232,6 +261,8 @@
                 };
 
                 request.send();
+                */
+                //END old_request
 
                
                 // ...
