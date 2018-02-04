@@ -202,7 +202,7 @@
                 request.onload = function () {
                     if (request.status >= 200 && request.status < 400) {
                         // Success!
-                        var resp = request.responseText;
+                        var response = request.responseText;
                         let members = response.split('\n');
                         // Check if email is on approved list
                         if (members.indexOf(email) > -1) {
